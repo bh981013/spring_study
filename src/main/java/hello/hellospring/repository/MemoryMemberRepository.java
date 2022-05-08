@@ -36,7 +36,10 @@ public class MemoryMemberRepository implements MemberRepository{
                 .filter(member -> member.getName().equals(name))
                 .findAny();
     }
-
+    @Override
+    public Optional<Member> findMember(String name, String password){
+        return null;
+    }
     @Override
     //자바에서는 실무에 list를 많이 씀
     public List<Member> findAll() {

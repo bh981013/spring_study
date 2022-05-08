@@ -5,12 +5,15 @@ import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
+@CrossOrigin
 //@Controller가 있으면 처음 Spring을 실행할 때 해당 객체를 생성하고 관리한다.
 public class MemberController {
     private final MemberService memberService; //여러개 생성할 필요x -> container에 등록한다
@@ -41,4 +44,14 @@ public class MemberController {
         model.addAttribute("members", members);
         return  "members/memberList";
     }
+
+    @PostMapping("/members/login")
+    @ResponseBody
+    public boolean tryLogin(MemberForm form){
+        Member member =new Member();
+        member.setName(form.getName());
+        member.setPassword(form.getPassword());
+        return memberService.login(member);
+    }
+
 }
