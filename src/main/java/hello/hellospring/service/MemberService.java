@@ -26,9 +26,14 @@ public class MemberService {
      */
 
     //ctrl + alt + v -> 함수 호출의 return값을 담을 변수 자동완성
-    public Long join(Member member){
-        checkDup(member);
-        memberRepository.save(member);
+    public int join(Member member){
+        try {
+            checkDup(member);
+            memberRepository.save(member);
+        }catch(Exception e){
+            e.printStackTrace();
+            return -1;
+        }
         return member.getId();
     }
 
@@ -46,8 +51,8 @@ public class MemberService {
         return memberRepository.findMember(member.getName(), member.getPassword()).isPresent();
     }
 
-    public Optional<Member> findOne(Long memberId){
-        return memberRepository.findById(memberId);
+    public Optional<Member> findOne(String memberName){
+        return memberRepository.findByName(memberName);
     }
 
 }

@@ -8,8 +8,8 @@ import java.util.*;
 //어떤 자료구조를 그대로 사용하기보단 클래스로 한번 묶어서 사용하면 좀더 직관적인 함수를 만들 수 있음
 @Repository
 public class MemoryMemberRepository implements MemberRepository{
-    private static Map<Long, Member> store = new HashMap<>();
-    private  static  long sequence = 0L;
+    private static Map<Integer, Member> store = new HashMap<>();
+    private  static  int sequence = 0;
 
     @Override
     //member에 이름은 이미 저장되었다고 가정
@@ -21,7 +21,7 @@ public class MemoryMemberRepository implements MemberRepository{
 
     //
     @Override
-    public Optional<Member> findById(Long id) {
+    public Optional<Member> findById(int id) {
         return Optional.ofNullable(store.get(id));
     }
 
