@@ -40,6 +40,7 @@ public class AuthApiController {
     String onAuthUserName(@AuthenticationPrincipal User user){
         return user.getUsername();
     }
+
     @GetMapping("/userInfo") //유저 정보 api
     String onAuthUserInfo(@AuthenticationPrincipal User user){
         return memberService.findOne(user.getUsername()).get().toString();

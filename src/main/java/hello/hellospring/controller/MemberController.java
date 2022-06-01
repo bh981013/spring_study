@@ -2,6 +2,7 @@ package hello.hellospring.controller;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +31,8 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(MemberForm form){
+    public String create(@RequestBody MemberForm form){
+        System.out.println(form.getName() + " "+ form.getPassword());
         Member member =new Member();
         member.setName(form.getName());
         member.setPassword(passwordEncoder.encode(form.getPassword()));
@@ -47,10 +49,11 @@ public class MemberController {
 
     @PostMapping("/members/login")
     @ResponseBody
-    public boolean tryLogin(MemberForm form){
+    public boolean tryLogin(@RequestBody MemberForm form){
+        System.out.println(form.getName() + " "+ form.getPassword());
         Member member =new Member();
         member.setName(form.getName());
-        member.setPassword(form.getPassword());
+        member.setPassword(passwordEncoder.encode(form.getPassword()));
         return memberService.login(member);
     }
 }
